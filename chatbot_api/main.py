@@ -54,7 +54,7 @@ def get_customer_consent(
 
 @app.get("/data")
 def serve_customer_inputs(
-        language: Optional[str] = None,
+        language: Optional[SupportedLanguages] = None,
         customer_id: Optional[int] = None,
 ):
     return {
