@@ -66,7 +66,10 @@ def get_customer_consent(
 ):
     if dialogue_id not in inputs:
         return {
-            "Error": "Dialogue id does not exist int the current session!"
+            "Error": (
+                f"Dialogue id {dialogue_id} does not"
+                f"exist int the current session!"
+            )
         }
 
     if consent.answer:
