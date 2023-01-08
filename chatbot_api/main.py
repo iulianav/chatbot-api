@@ -4,6 +4,12 @@ from typing import Optional
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+from .schemas import (
+    CustomerConsent,
+    CustomerInput,
+    SupportedLanguages,
+)
+
 
 description = """
 API used by data scientists to further improve an existing chatbot.
@@ -20,22 +26,6 @@ app = FastAPI(
         "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
     },
 )
-
-
-class SupportedLanguages(str, Enum):
-    english = "EN"
-    french = "FR"
-    german = "GE"
-    italian = "IT"
-
-
-class CustomerInput(BaseModel):
-    text: str
-    language: SupportedLanguages
-
-
-class CustomerConsent(BaseModel):
-    answer: bool
 
 
 @app.post("/data/{customer_id}/{dialogue_id}")
