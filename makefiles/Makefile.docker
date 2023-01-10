@@ -7,6 +7,10 @@ DOCKER_IMG=$(IMAGE):$(TAG)
 DOCKER_PORT=$(API_PORT):$(API_PORT)
 
 
+.PHONY: build-app
+build-app:
+	docker-compose build --no-cache
+
 .PHONY: build-docker-img
 build-docker-img:
 	docker build --no-cache -t $(DOCKER_IMG) .
@@ -14,3 +18,11 @@ build-docker-img:
 .PHONY: run-docker-img
 run-docker-img:
 	docker run --name $(CONTAINER_NAME) -d -p $(API_PORT):$(API_PORT) $(DOCKER_IMG)
+
+.PHONY: run-app
+run-app:
+	docker-compose up --force-recreate -d
+
+.PHONY: kill-app
+kill-app:
+	docker-compose down

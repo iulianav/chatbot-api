@@ -23,12 +23,3 @@ isort:
 lint:
 	pylint $(PYTHON_MODULES)
 
-
-.PHONY: run-app
-run-app:
-	uvicorn chatbot_api.main:app --host $(HOST) --port $(API_PORT)
-
-
-.PHONY: run-app-dev
-run-app-dev:
-	uvicorn chatbot_api.main:app --host $(HOST) --port $(API_PORT) --reload
