@@ -1,5 +1,7 @@
 SQLAlchemy~=1.4.35
+SQLAlchemy-Utils~=0.39.0
 fastapi~=0.68.0
+httpx~=0.23.3
 psycopg2-binary~=2.9.5
 pydantic~=1.8.0
 python-dotenv~=0.21.0

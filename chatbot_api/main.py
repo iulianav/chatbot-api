@@ -2,6 +2,7 @@ from typing import Optional, Union
 
 from fastapi import Depends, FastAPI, Response, status
 from sqlalchemy.orm import Session
+from sqlalchemy_utils import database_exists
 
 from .crud import (
     create_user_input,
@@ -26,7 +27,8 @@ from .schemas import (
 # TODO: Use Redis as cache in the future instead of storing
 # in DB from the start.
 
-Base.metadata.create_all(bind=engine)
+if database_exists(engine.url):
+    Base.metadata.create_all(bind=engine)
 
 description = """
 API used by data scientists to further improve an existing chatbot.
