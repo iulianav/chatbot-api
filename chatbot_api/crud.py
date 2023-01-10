@@ -14,7 +14,6 @@ def create_user_input(
     new_customer_input = CustomerInputs(**customer_input.dict())
     db.add(new_customer_input)
     db.commit()
-    db.refresh(new_customer_input)
     return new_customer_input
 
 
