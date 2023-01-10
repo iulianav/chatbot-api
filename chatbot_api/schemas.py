@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import List
 
 from pydantic import BaseModel
 
@@ -21,4 +22,21 @@ class CompleteCustomerInput(CustomerInput):
 
 
 class CustomerConsent(BaseModel):
-    answer: bool
+    consent: bool
+
+
+class CustomerConsentResponse(CustomerConsent):
+    dialogue_id: int
+
+
+class DatabaseCustomerInputRecord(CompleteCustomerInput):
+    id: int
+
+
+class CustomerInputResponse(BaseModel):
+    results_number: int
+    results: List[DatabaseCustomerInputRecord]
+
+
+class Error(BaseModel):
+    error: str
