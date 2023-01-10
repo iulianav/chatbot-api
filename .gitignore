@@ -1,0 +1,48 @@
+# Test report data
+.tests/
+
+# JetBrains IDE
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# macOS folder data
+.DS_Store
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PEP 582
+__pypackages__/
+
+# Environments
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*-conda-env/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/

@@ -1,0 +1,25 @@
+PYTHON_MODULES:=$(shell python -c "import pkgutil; modules = [name if ispkg else f'{name}.py' for _, name, ispkg in pkgutil.iter_modules(['.'])]; print(' '.join(modules), end='')")
+
+API_PORT=80
+HOST=0.0.0.0
+
+
+.PHONY: analyze
+analyze:
+	mypy $(PYTHON_MODULES)
+
+
+.PHONY: black
+black:
+	black $(PYTHON_MODULES)
+
+
+.PHONY: isort
+isort:
+	isort $(PYTHON_MODULES)
+
+
+.PHONY: lint
+lint:
+	pylint $(PYTHON_MODULES)
+
