@@ -1,9 +1,11 @@
 # chatbot-api
+
 The project represents a Data API used by data scientists to further improve an existing chatbot. Requests are sent by a
 background job which pushes the customer data and consent via HTTP.
 
 
 ## How to run
+
 To run this project, you need to have `Docker` and `Compose` installed.
 
 The docker-compose commands are already abstracted through Makefile rules for simplicity. Run the following commands to:
@@ -19,8 +21,8 @@ The default database's settings can be found in `.env`. Feel free to change thos
 own `.env` file locally.
 
 To remove the persistent volume created by the database container, and hence delete the database contents, run:
-- Find db volume name: `docker volume ls`
-- Delete db volume: `docker volume rm <volume_name>`
+1. Find db volume name: `docker volume ls`
+2. Delete db volume: `docker volume rm <volume_name>`
 
 
 ## Development
@@ -28,12 +30,17 @@ To remove the persistent volume created by the database container, and hence del
 To further develop the project, you should create a virtual environment with virtualenv or anaconda, and then
 install both the project requirements and the development requirements inside of it:
 
-- Create environment: `conda create <env_name> python=3.9`
-- Activate environment: `conda activate <env_name>`
-- Install requirements : `pip install -r requirements.txt`
-- Install development requirements: `pip install -r requirements-dev.txt`
+1. Create environment: `conda create <env_name> python=3.9`
+2. Activate environment: `conda activate <env_name>`
+3. Install requirements : `pip install -r requirements.txt`
+4. Install development requirements: `pip install -r requirements-dev.txt`
 
-You can find additional `Makefile` rules to help with checking the code quality in `makefiles/Makefile.python`.
+You can find additional `Makefile` rules to help with checking the code quality in `makefiles/Makefile.python`:
+
+1. Sort imports: `make isort`
+2. Format code: `make black`
+3. Lint code: `make lint`
+4. Type checking: `make analyze`
 
 
 ## Manual testing
@@ -54,6 +61,7 @@ relation `user_inputs` does not exist. In this case: kill, re-build and re-start
 ## Unit testing
 
 To run the unit tests in the development virtual environment, run the command: `python -m pytest tests`
+
 
 ## TODO
 - Add docstrings & comments
