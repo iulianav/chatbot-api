@@ -150,6 +150,66 @@ def test_get_customer_consent_true(db, test_client, test_records):
             },
             {
                 "customer_id": 124,
+                "dialogue_id": 334,
+                "language": "FR",
+                "text": "bar",
+            },
+            {
+                "customer_id": 124,
+                "dialogue_id": 334,
+                "language": "IT",
+                "text": "baz",
+            },
+        ],
+    ],
+)
+def test_get_customer_input(db, test_client, test_records):
+    customer_id = 456
+    dialogue_id = 543
+    language = SupportedLanguages.french
+
+    customer_input = {
+        "text": "foo bar baz",
+        "language": language.english,
+    }
+
+    response = test_client.post(
+        f"/data/{customer_id}/{dialogue_id}",
+        json=customer_input
+    )
+
+    expected_response_json = {
+        "customer_id": 456,
+        "dialogue_id": 543,
+        "text": "foo bar baz",
+        "language": "EN",
+    }
+
+    assert response.status_code == 200
+    assert response.json() == expected_response_json
+
+    # Check that it does not save to db without consent.
+    records = db.query(CustomerInputs).all()
+    records = [record.as_dict() for record in records]
+
+    expected_response_json.update({"id": 4})
+
+    assert len(records) == 4
+    assert expected_response_json in records
+
+
+@pytest.mark.parametrize(
+    "records",
+    [
+        [
+            {
+                "customer_id": 123,
+                "dialogue_id": 321,
+                "language": "EN",
+                "text": "foo",
+            },
+            {
+                "customer_id": 124,
                 "dialogue_id": 322,
                 "language": "FR",
                 "text": "bar",
@@ -360,69 +420,3 @@ def test_serve_customer_inputs_by_customer_id_and_language(test_client, test_rec
 
     assert response.status_code == 200
     assert response.json() == expected_response_json
-
-
-@pytest.mark.parametrize(
-    "records",
-    [
-        [
-            {
-                "customer_id": 123,
-                "dialogue_id": 321,
-                "language": "EN",
-                "text": "foo",
-            },
-            {
-                "customer_id": 124,
-                "dialogue_id": 334,
-                "language": "FR",
-                "text": "bar",
-            },
-            {
-                "customer_id": 124,
-                "dialogue_id": 334,
-                "language": "IT",
-                "text": "baz",
-            },
-{
-                "customer_id": 127,
-                "dialogue_id": 336,
-                "language": "IT",
-                "text": "baz",
-            },
-        ],
-    ],
-)
-def test_get_customer_input(db, test_client, test_records):
-    customer_id = 456
-    dialogue_id = 543
-    language = SupportedLanguages.french
-
-    customer_input = {
-        "text": "foo bar baz",
-        "language": language.english,
-    }
-
-    response = test_client.post(
-        f"/data/{customer_id}/{dialogue_id}",
-        json=customer_input
-    )
-
-    expected_response_json = {
-        "customer_id": 456,
-        "dialogue_id": 543,
-        "text": "foo bar baz",
-        "language": "EN",
-    }
-
-    assert response.status_code == 200
-    assert response.json() == expected_response_json
-
-    # Check that it does not save to db without consent.
-    records = db.query(CustomerInputs).all()
-    records = [record.as_dict() for record in records]
-
-    expected_response_json.update({"id": 4})
-
-    assert len(records) == 4
-    assert expected_response_json in records
